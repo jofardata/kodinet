@@ -4,6 +4,7 @@ import net.kodinet.kodinet.constants.ConstantsVariables;
 import net.kodinet.kodinet.entities.Person;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.repositories.PersonRepository;
+import net.kodinet.kodinet.utils.GenerateRandomStuff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/persons")
@@ -26,6 +28,7 @@ public class PersonController {
     @PostMapping("/create")
     public ResponseEntity<?> create(Person person){
 
+        person.setBdnId(GenerateRandomStuff.getRandomString(10));
         Person person1 = personRepository.save(person);
         apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");
@@ -67,6 +70,31 @@ public class PersonController {
             apiResponse.setResponseCode(ConstantsVariables.errorCode);
             apiResponse.setResponseMessage("data not found");
         }
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?>update(Person person,@PathVariable Long id){
+
+        try
+        {
+            Person existingPerson = personRepository.getOne(id);
+            existingPerson.setNationalId(person.getNationalId());
+            existingPerson.setCompanyName(person.getCompanyName());
+            existingPerson.setEmail(person.getEmail());
+            existingPerson.setInitials(person.getInitials());
+            existingPerson.setFirstName(person.getFirstName());
+            existingPerson.setMiddleName(person.getMiddleName());
+            existingPerson.setLastName(person.getLastName());
+            personRepository.save(existingPerson);
+            apiResponse.setResponseCode(ConstantsVariables.successCode);
+            apiResponse.setResponseMessage("data updated");
+            apiResponse.setData(existingPerson);
+        }catch (Exception e){
+            apiResponse.setResponseCode(ConstantsVariables.errorCode);
+            apiResponse.setResponseMessage("Error "+e.getMessage());
+        }
+
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }

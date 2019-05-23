@@ -24,6 +24,7 @@ public class Person {
     private String gender;
     private Date dob;
     private String email;
+    @Column(unique = true)
     private String phone;
     private String phone2;
     private String phone3;
