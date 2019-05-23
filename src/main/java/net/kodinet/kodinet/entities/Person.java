@@ -1,5 +1,6 @@
 package net.kodinet.kodinet.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Date;
 
 @Entity(name = "PERSONS")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Person {
 
     @Id
