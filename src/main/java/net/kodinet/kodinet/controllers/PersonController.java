@@ -100,9 +100,16 @@ public class PersonController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
 
-        personRepository.deleteById(id);
-        apiResponse.setResponseCode("00");
-        apiResponse.setResponseMessage("Data deleted");
+        if (personRepository.getOne(id)!=null){
+            personRepository.deleteById(id);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Data deleted");
+        }else {
+            personRepository.deleteById(id);
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage("Data not found");
+        }
+
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
