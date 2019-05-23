@@ -1,5 +1,6 @@
 package net.kodinet.kodinet.controllers;
 
+import net.kodinet.kodinet.constants.ConstantsVariables;
 import net.kodinet.kodinet.entities.Person;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.repositories.PersonRepository;
@@ -23,7 +24,7 @@ public class PersonController {
     public ResponseEntity<?> create(Person person){
 
         Person person1 = personRepository.save(person);
-        apiResponse.setResponseCode("00");
+        apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");
         apiResponse.setData(person1);
 
