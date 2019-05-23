@@ -55,7 +55,7 @@ public class PersonController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/read-by-input")
+    @GetMapping("/read-by-input/{input}")
     public ResponseEntity<?>readByInput(@PathVariable String input){
 
         Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(input);
