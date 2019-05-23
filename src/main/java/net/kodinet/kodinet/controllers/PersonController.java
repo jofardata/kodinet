@@ -58,7 +58,7 @@ public class PersonController {
     @GetMapping("/read-by-input/{input}")
     public ResponseEntity<?>readByInput(@PathVariable String input){
 
-        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(input);
+        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(input,input,input,input);
         if (person!=null){
             apiResponse.setResponseCode(ConstantsVariables.successCode);
             apiResponse.setResponseMessage("data found");
