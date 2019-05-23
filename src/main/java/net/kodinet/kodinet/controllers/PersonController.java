@@ -97,4 +97,12 @@ public class PersonController {
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?>delete(@PathVariable Long id){
+
+        personRepository.deleteById(id);
+        apiResponse.setResponseCode("00");
+        apiResponse.setResponseMessage("Data deleted");
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 }
