@@ -69,6 +69,7 @@ public class PersonController {
         }else{
             apiResponse.setResponseCode(ConstantsVariables.errorCode);
             apiResponse.setResponseMessage("data not found");
+
         }
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
