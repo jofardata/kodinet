@@ -40,6 +40,9 @@ public class AgentController {
                 apiResponse.setResponseCode("00");
                 apiResponse.setResponseMessage("welcome");
                 apiResponse.setData(agent);
+            }else{
+                apiResponse.setResponseCode("01");
+                apiResponse.setResponseMessage("Wrong username or password");
             }
         }else{
             apiResponse.setResponseCode("01");
