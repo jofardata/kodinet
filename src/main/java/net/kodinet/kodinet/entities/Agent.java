@@ -17,4 +17,5 @@ public class Agent {
     private String name;
     private String username;
     private String password;
+    private boolean hasChangedPassword;
 }
