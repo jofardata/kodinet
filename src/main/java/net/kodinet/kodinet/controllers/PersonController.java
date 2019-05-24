@@ -1,8 +1,10 @@
 package net.kodinet.kodinet.controllers;
 
 import net.kodinet.kodinet.constants.ConstantsVariables;
+import net.kodinet.kodinet.entities.Agent;
 import net.kodinet.kodinet.entities.Person;
 import net.kodinet.kodinet.models.ApiResponse;
+import net.kodinet.kodinet.repositories.AgentRepository;
 import net.kodinet.kodinet.repositories.PersonRepository;
 import net.kodinet.kodinet.utils.GenerateRandomStuff;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,17 @@ public class PersonController {
 
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    AgentRepository agentRepository;
 
     ApiResponse apiResponse = new ApiResponse();
 
-    @PostMapping("/create")
-    public ResponseEntity<?> create(Person person){
+    @PostMapping("/create/{agentId}")
+    public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId){
 
         person.setBdnId(GenerateRandomStuff.getRandomString(10));
+        Agent agent = agentRepository.getOne(agentId);
+        person.setCreatedBy(agent);
         Person person1 = personRepository.save(person);
         apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");

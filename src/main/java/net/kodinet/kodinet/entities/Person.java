@@ -38,5 +38,8 @@ public class Person {
     private String pobox;
     private String type;
     private String registrationType;
+    private Long creationDate;
+    @ManyToOne
+    private Agent createdBy;
 
 }
