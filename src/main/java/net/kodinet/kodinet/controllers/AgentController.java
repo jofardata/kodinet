@@ -4,6 +4,8 @@ import net.kodinet.kodinet.entities.Agent;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.models.LoginObject;
 import net.kodinet.kodinet.repositories.AgentRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class AgentController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     ApiResponse apiResponse = new ApiResponse();
+    Logger LOGGER = LogManager.getLogger();
     @PostMapping("/create")
     public ResponseEntity<?>create(Agent agent){
 
@@ -33,6 +36,7 @@ public class AgentController {
     @PostMapping("/login")
     public ResponseEntity<?>login(LoginObject loginObject){
 
+        LOGGER.info("LOGIN_REQUEST "+loginObject.toString());
         Agent agent = agentRepository.findByUsername(loginObject.getUsername());
 
         if (agent!=null){
