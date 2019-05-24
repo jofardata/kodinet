@@ -1,5 +1,6 @@
 package net.kodinet.kodinet.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -17,5 +18,6 @@ public class Agent {
     private String name;
     private String username;
     private String password;
+    @JsonIgnore
     private boolean hasChangedPassword;
 }
