@@ -20,7 +20,7 @@ public class Asset {
     private String name;
     private double latitude;
     private double longitude;
-    private JtsGeometry geometry;
+    //private JtsGeometry geometry;
     private String avenue;
     private String compoundName;
     private String numberPlate;
