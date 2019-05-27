@@ -41,5 +41,7 @@ public class Person {
     private Long creationDate;
     @ManyToOne
     private Agent createdBy;
+    @Transient
+    private String birthday;
 
 }

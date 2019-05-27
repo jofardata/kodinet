@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -30,11 +32,13 @@ public class PersonController {
     ApiResponse apiResponse = new ApiResponse();
 
     @PostMapping("/create/{agentId}")
-    public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId){
+    public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId) throws ParseException {
 
+        
         person.setBdnId(GenerateRandomStuff.getRandomString(10));
         Agent agent = agentRepository.getOne(agentId);
         person.setCreatedBy(agent);
+        person.setDob(new SimpleDateFormat("dd/MM/yyyy").parse(person.getBirthday()));
         Person person1 = personRepository.save(person);
         apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");
