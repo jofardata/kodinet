@@ -34,7 +34,7 @@ public class PersonController {
     @PostMapping("/create/{agentId}")
     public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId) throws ParseException {
 
-        
+
         person.setBdnId(GenerateRandomStuff.getRandomString(10));
         Agent agent = agentRepository.getOne(agentId);
         person.setCreatedBy(agent);
