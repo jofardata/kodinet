@@ -44,4 +44,21 @@ public class Person {
     @Transient
     private String birthday;
 
+    private String originCountry;
+    private String originProvince;
+    private String originTerritory;
+    private String originCollectivity;
+    private String originCheffery;
+    private String originVillage;
+    private String addressCountry;
+    private String addressCity;
+    private String addressCommune;
+    private String addressArea;
+    private String addressAvenue;
+    private String addressNumber;
+
+    private String profession;
+    private String professionCompanyName;
+    private String professionCompanyId;
+
 }
