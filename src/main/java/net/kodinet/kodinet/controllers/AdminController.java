@@ -14,6 +14,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/admins")
+@CrossOrigin(origins = "*")
 public class AdminController {
 
     @Autowired

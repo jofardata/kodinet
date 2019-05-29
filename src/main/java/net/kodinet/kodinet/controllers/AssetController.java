@@ -15,6 +15,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/assets")
+@CrossOrigin(origins = "*")
 public class AssetController {
 
     @Autowired

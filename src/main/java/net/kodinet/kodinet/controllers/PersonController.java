@@ -22,6 +22,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/persons")
+@CrossOrigin(origins = "*")
 public class PersonController {
 
     @Autowired

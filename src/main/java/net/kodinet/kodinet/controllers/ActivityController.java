@@ -12,6 +12,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/activities")
+@CrossOrigin(origins = "*")
 public class ActivityController {
 
     @Autowired

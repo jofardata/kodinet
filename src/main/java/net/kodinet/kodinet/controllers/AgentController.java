@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/agents")
+@CrossOrigin(origins = "*")
 public class AgentController {
 
     @Autowired
