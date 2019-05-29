@@ -1,8 +1,10 @@
 package net.kodinet.kodinet.controllers;
 
+import net.kodinet.kodinet.entities.Admin;
 import net.kodinet.kodinet.entities.Agent;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.models.LoginObject;
+import net.kodinet.kodinet.repositories.AdminRepository;
 import net.kodinet.kodinet.repositories.AgentRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,12 +22,16 @@ public class AgentController {
     @Autowired
     AgentRepository agentRepository;
     @Autowired
+    AdminRepository adminRepository;
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
     ApiResponse apiResponse = new ApiResponse();
     Logger LOGGER = LogManager.getLogger();
-    @PostMapping("/create")
-    public ResponseEntity<?>create(Agent agent){
+    @PostMapping("/create/{adminId}")
+    public ResponseEntity<?>create(@RequestBody Agent agent,@PathVariable Long adminId){
 
+        Admin admin = adminRepository.getOne(adminId);
+        agent.setCreatedBy(admin);
         agent.setPassword(bCryptPasswordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
         return new ResponseEntity<>("Agent created", HttpStatus.OK);
