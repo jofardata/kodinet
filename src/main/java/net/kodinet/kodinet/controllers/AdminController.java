@@ -2,6 +2,7 @@ package net.kodinet.kodinet.controllers;
 
 import net.kodinet.kodinet.entities.Admin;
 import net.kodinet.kodinet.models.ApiResponse;
+import net.kodinet.kodinet.models.LoginObject;
 import net.kodinet.kodinet.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,26 @@ public class AdminController {
         Collection<Admin>admins = adminRepository.findAll();
         apiResponse.setResponseCode("00");
         apiResponse.setData(admins);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?>login(@RequestBody LoginObject loginObject){
+
+        Admin admin = adminRepository.findByUsername(loginObject.getUsername());
+        if (admin==null){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage("Admin not found");
+        }else{
+            if (!bCryptPasswordEncoder.matches(loginObject.getPassword(), admin.getPassword())){
+                apiResponse.setResponseCode("01");
+                apiResponse.setResponseMessage("Wrong username or password");
+            }else{
+                apiResponse.setResponseCode("00");
+                apiResponse.setResponseMessage("Login Succesful");
+                apiResponse.setData(admin);
+            }
+        }
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
