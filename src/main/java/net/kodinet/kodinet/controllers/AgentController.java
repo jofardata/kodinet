@@ -34,7 +34,10 @@ public class AgentController {
         agent.setCreatedBy(admin);
         agent.setPassword(bCryptPasswordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
-        return new ResponseEntity<>("Agent created", HttpStatus.OK);
+        apiResponse.setResponseCode("00");
+        apiResponse.setResponseMessage("Agent Created");
+        apiResponse.setData(agent);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PostMapping("/login")
