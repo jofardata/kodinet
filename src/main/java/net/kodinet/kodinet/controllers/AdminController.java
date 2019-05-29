@@ -26,6 +26,7 @@ public class AdminController {
     @PostMapping("/create")
     public ResponseEntity<?>create(@RequestBody Admin admin){
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
+        adminRepository.save(admin);
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Admin created");
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
