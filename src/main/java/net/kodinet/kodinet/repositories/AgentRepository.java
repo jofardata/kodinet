@@ -13,4 +13,7 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     List<Agent> findAll();
 
     Agent findByUsername(String username);
+
+    @Query(value = "select count(*) from agents", nativeQuery = true)
+    int findCount();
 }

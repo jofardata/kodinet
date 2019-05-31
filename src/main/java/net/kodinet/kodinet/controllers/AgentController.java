@@ -70,4 +70,11 @@ public class AgentController {
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/findCount")
+    public ResponseEntity<?>findCount(){
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(agentRepository.findCount());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 }
