@@ -40,6 +40,14 @@ public class AgentController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/findAll")
+    public ResponseEntity<?>findAll(){
+
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(agentRepository.findAll());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?>login(@RequestBody LoginObject loginObject){
 
