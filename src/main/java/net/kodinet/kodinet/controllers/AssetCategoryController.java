@@ -27,6 +27,7 @@ public class AssetCategoryController {
 
     @GetMapping("/read-all")
     public ResponseEntity<?>findAll(){
-        return new ResponseEntity<>(assetCategoryRepository.findAll(), HttpStatus.OK);
+        apiResponse.setData(assetCategoryRepository.findAll());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
