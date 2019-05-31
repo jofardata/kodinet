@@ -1,8 +1,10 @@
 package net.kodinet.kodinet.controllers;
 
 import net.kodinet.kodinet.entities.Asset;
+import net.kodinet.kodinet.entities.AssetCategory;
 import net.kodinet.kodinet.entities.Person;
 import net.kodinet.kodinet.models.ApiResponse;
+import net.kodinet.kodinet.repositories.AssetCategoryRepository;
 import net.kodinet.kodinet.repositories.AssetRepository;
 import net.kodinet.kodinet.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +24,20 @@ public class AssetController {
     AssetRepository assetRepository;
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    AssetCategoryRepository categoryRepository;
     ApiResponse apiResponse = new ApiResponse();
 
-    @PostMapping("/create/{personId}")
-    public ResponseEntity<?>create(@RequestBody Asset asset, @PathVariable Long personId){
-        Person person = personRepository.getOne(personId);
+    @PostMapping("/create/{bdnNumber}/{categoryId}")
+    public ResponseEntity<?>create(@RequestBody Asset asset,
+                                   @PathVariable String bdnNumber,
+                                   @PathVariable Long categoryId){
+        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(bdnNumber,"","","");
+        AssetCategory category = categoryRepository.getOne(categoryId);
         asset.setPerson(person);
         asset.setCreationDate(System.currentTimeMillis());
         asset.setCreatedOn(new Date());
+        asset.setAssetCategory(category);
         Asset created= assetRepository.save(asset);
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Asset created");
