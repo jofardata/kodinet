@@ -59,4 +59,11 @@ public class AdminController {
         }
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/findCount")
+    public ResponseEntity<?>findCount(){
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(adminRepository.findCOunt());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 }
