@@ -48,7 +48,7 @@ public class FreightController {
         freight.setAirline(airline);
         freightRepository.save(freight);
         apiResponse.setResponseCode("00");
-        apiResponse.setResponseMessage("Agent created");
+        apiResponse.setResponseMessage("Freight created");
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
