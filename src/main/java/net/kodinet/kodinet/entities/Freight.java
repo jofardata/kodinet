@@ -23,6 +23,7 @@ public class Freight {
     private String freightCompany;
     private Date createdOn;
     private String flightNumber;
+    @ManyToOne
     private Airline airline;
     private Double amount;
     private String currency;

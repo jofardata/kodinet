@@ -22,6 +22,7 @@ public class Embarkment {
     private Double amount;
     private String currency;
     private Date createdOn;
+    @ManyToOne
     private Airline airline;
     @ManyToOne
     private Airport departureAirport;
