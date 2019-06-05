@@ -21,4 +21,9 @@ public class Embarkment {
     private String passengerName;
     private Double amount;
     private Date createdOn;
+    private Airline airline;
+    @ManyToOne
+    private Airport departureAirport;
+    @ManyToOne
+    private Airport arrivalAirport;
 }

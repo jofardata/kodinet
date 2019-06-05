@@ -14,6 +14,12 @@ public class GoPass {
     private Long id;
     @ManyToOne
     private Agent agent;
+    @ManyToOne
+    private Airline airline;
+    @ManyToOne
+    private Airport departureAirport;
+    @ManyToOne
+    private Airport arrivalAirport;
     private Date createdOn;
     private String passenderName;
     private String flightCompany;
