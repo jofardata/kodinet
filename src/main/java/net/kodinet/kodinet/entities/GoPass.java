@@ -25,5 +25,6 @@ public class GoPass {
     private String flightCompany;
     private String airportName;
     private String flightNumber;
-    private Double amountPaid;
+    private Double amount;
+    private String currency;
 }

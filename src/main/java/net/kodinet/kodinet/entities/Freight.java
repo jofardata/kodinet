@@ -24,6 +24,8 @@ public class Freight {
     private Date createdOn;
     private String flightNumber;
     private Airline airline;
+    private Double amount;
+    private String currency;
     @ManyToOne
     private Airport departureAirport;
     @ManyToOne

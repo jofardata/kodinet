@@ -20,6 +20,7 @@ public class Embarkment {
     private String flightCompany;
     private String passengerName;
     private Double amount;
+    private String currency;
     private Date createdOn;
     private Airline airline;
     @ManyToOne
