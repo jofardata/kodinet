@@ -30,22 +30,9 @@ public class FreightController {
     @Autowired
     AirlineRepository airlineRepository;
 
-    @PostMapping("/create/{agentId}/{departureAirport}/{arrivalAirport}/{airlineId}")
-    public ResponseEntity<?>create(@RequestBody Freight freight,
-                                   @PathVariable Long agentId,
-                                   @PathVariable Long departureAirport,
-                                   @PathVariable Long arrivalAirport,
-                                   @PathVariable Long airlineId){
-
-        Agent agent = agentRepository.getOne(agentId);
-        Airport departureAiprt = airportRepository.getOne(departureAirport);
-        Airport arrivalAiprt = airportRepository.getOne(arrivalAirport);
-        freight.setAgent(agent);
-        freight.setDepartureAirport(departureAiprt);
-        freight.setArrivalAirport(arrivalAiprt);
+    @PostMapping("/create")
+    public ResponseEntity<?>create(@RequestBody Freight freight){
         freight.setCreatedOn(new Date());
-        Airline airline = airlineRepository.getOne(airlineId);
-        freight.setAirline(airline);
         freightRepository.save(freight);
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Freight created");

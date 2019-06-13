@@ -17,5 +17,6 @@ public class Embarkment {
     private float amount;
     private String flightCompany;
     private String currency;
+    private Date createdOn;
 
 }

@@ -29,21 +29,9 @@ public class GoPassController {
     @Autowired
     AirlineRepository airlineRepository;
 
-    @PostMapping("/create/{agentId}/{departureAirport}/{arrivalAirport}/{airlineId}")
-    public ResponseEntity<?>create(@RequestBody GoPass goPass,
-                                   @PathVariable Long agentId,
-                                   @PathVariable Long departureAirport,
-                                   @PathVariable Long arrivalAirport,
-                                   @PathVariable Long airlineId){
-        Agent agent = agentRepository.getOne(agentId);
-        Airport airportA = airportRepository.getOne(departureAirport);
-        Airport aiportB = airportRepository.getOne(arrivalAirport);
-        goPass.setDepartureAirport(airportA);
-        goPass.setArrivalAirport(aiportB);
+    @PostMapping("/create")
+    public ResponseEntity<?>create(@RequestBody GoPass goPass){
         goPass.setCreatedOn(new Date());
-        goPass.setAgent(agent);
-        Airline airline = airlineRepository.getOne(airlineId);
-        goPass.setAirline(airline);
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("GoPass Created");
         apiResponse.setData(gopassRepository.save(goPass));

@@ -32,7 +32,7 @@ public class EmbarkementController {
     @PostMapping("/create")
     public ResponseEntity<?>create(@RequestBody Embarkment embarkment)
                                    {
-        
+        embarkment.setCreatedOn(new Date());
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Embarkement created");
         embarkementRepository.save(embarkment);
