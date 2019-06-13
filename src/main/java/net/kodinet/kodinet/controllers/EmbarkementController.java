@@ -29,21 +29,10 @@ public class EmbarkementController {
     AirportRepository airportRepository;
     @Autowired
     AirlineRepository airlineRepository;
-    @PostMapping("/create/{agentId}/{departureAirport}/{arrivalAirport}/{airlineId}")
-    public ResponseEntity<?>create(@RequestBody Embarkment embarkment,
-                                   @PathVariable Long agentId,
-                                   @PathVariable Long departureAirport,
-                                   @PathVariable Long arrivalAirport,
-                                   @PathVariable Long airlineId){
-        Agent agent = agentRepository.getOne(agentId);
-        Airport airportA = airportRepository.getOne(departureAirport);
-        Airport airportB = airportRepository.getOne(arrivalAirport);
-        Airline airline = airlineRepository.getOne(airlineId);
-        embarkment.setAgent(agent);
-        embarkment.setDepartureAirport(airportA);
-        embarkment.setArrivalAirport(airportB);
-        embarkment.setCreatedOn(new Date());
-        embarkment.setAirline(airline);
+    @PostMapping("/create")
+    public ResponseEntity<?>create(@RequestBody Embarkment embarkment)
+                                   {
+        
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Embarkement created");
         embarkementRepository.save(embarkment);
