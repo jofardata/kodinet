@@ -19,7 +19,7 @@ public class GoPass {
     private String currency;
 
     private String departure;
-    private String to;
+    private String destination;
     private String genre;
     private String type;
     private Date createdOn;
