@@ -18,6 +18,12 @@ public class DrivingLicense {
 
     private String photo;
     private String name;
+    private String nationalId;
+    private String birthPlace;
+    private String bithday;
+    private String address;
+    private float amount;
+    private String amountString;
     private String email;
     private String phone;
     private String town;
