@@ -1,5 +1,6 @@
 package net.kodinet.kodinet.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -31,7 +32,10 @@ public class Person {
     private String phone2;
     private String phone3;
     private String image;
+    @JsonIgnore
     private byte[] fingerprint;
+    @Transient
+    private String fPrint;
     private String rfid;
     private String companyName;
     private String initials;

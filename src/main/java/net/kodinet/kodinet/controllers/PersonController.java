@@ -38,7 +38,7 @@ public class PersonController {
     ApiResponse apiResponse = new ApiResponse();
 
     @PostMapping("/create/{agentId}")
-    public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId) throws ParseException {
+    public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId) throws ParseException, UnsupportedEncodingException {
 
 
         person.setBdnId(GenerateRandomStuff.getRandomString(10));
@@ -46,6 +46,10 @@ public class PersonController {
         person.setCreatedBy(agent);
         if (person.getBirthday()!=null){
             person.setDob(new SimpleDateFormat("dd/MM/yyyy").parse(person.getBirthday()));
+        }
+        if (person.getFPrint()!=null){
+            byte [] bytes =Base64.decodeBase64(new String(person.getFPrint()).getBytes("UTF-8"));
+            person.setFingerprint(bytes);
         }
         Person person1 = personRepository.save(person);
         apiResponse.setResponseCode(ConstantsVariables.successCode);
