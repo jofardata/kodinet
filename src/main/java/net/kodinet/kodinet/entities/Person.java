@@ -32,6 +32,7 @@ public class Person {
     private String phone3;
     private String image;
     private byte[] fingerprint;
+    private String rfid;
     private String companyName;
     private String initials;
     private String rccm;

@@ -21,12 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/persons")
@@ -82,7 +79,7 @@ public class PersonController {
     @GetMapping("/read-by-input/{input}")
     public ResponseEntity<?>readByInput(@PathVariable String input){
 
-        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(input,input,input,input);
+        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrRfid(input,input,input,input);
         if (person!=null){
             apiResponse.setResponseCode(ConstantsVariables.successCode);
             apiResponse.setResponseMessage("data found");
@@ -141,7 +138,7 @@ public class PersonController {
                                               ) throws UnsupportedEncodingException {
         String personId = fingerprintObject.getPersonId();
         Person person = personRepository.
-                findByBdnIdOrNationalIdOrPhoneOrEmail
+                findByBdnIdOrNationalIdOrPhoneOrRfid
                         (personId,personId,personId,personId);
         if (person!=null){
             byte [] bytes = Base64.decodeBase64(new String(fingerprintObject.getFingerprint()).getBytes("UTF-8"));
@@ -159,7 +156,7 @@ public class PersonController {
     public ResponseEntity<?>validateFingerprint(@RequestBody FingerprintObject fingerprintObject) throws IOException {
 
         String personId = fingerprintObject.getPersonId();
-        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(personId,personId,personId,personId);
+        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrRfid(personId,personId,personId,personId);
         byte[] probeImage = person.getFingerprint();
         byte[] candidateImage = Base64.decodeBase64(new String(fingerprintObject.getFingerprint()).getBytes("UTF-8"));
         FingerprintTemplate probe = new FingerprintTemplate()
