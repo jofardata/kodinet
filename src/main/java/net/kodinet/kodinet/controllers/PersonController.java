@@ -147,12 +147,16 @@ public class PersonController {
         if (person!=null){
             byte [] bytes = Base64.decodeBase64(new String(fingerprintObject.getFingerprint()).getBytes("UTF-8"));
             person.setFingerprint(bytes);
+            personRepository.save(person);
+
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Fingerprint saved");
+        }else{
+            apiResponse.setResponseCode("02");
+            apiResponse.setResponseMessage("Person Not Found");
         }
 
-        personRepository.save(person);
 
-        apiResponse.setResponseCode("00");
-        apiResponse.setResponseMessage("Fingerprint saved");
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
