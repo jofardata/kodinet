@@ -16,4 +16,6 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     @Query(value = "select count(*) from agents", nativeQuery = true)
     int findCount();
+
+    public List<Agent> findAllByOrderByNameAsc();
 }
