@@ -32,7 +32,7 @@ public class AssetController {
     public ResponseEntity<?>create(@RequestBody Asset asset,
                                    @PathVariable String bdnNumber,
                                    @PathVariable Long categoryId){
-        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrEmail(bdnNumber,"","","");
+        Person person = personRepository.findByBdnIdOrNationalIdOrPhoneOrRfid(bdnNumber,"","","");
         AssetCategory category = categoryRepository.getOne(categoryId);
         asset.setPerson(person);
         asset.setCreationDate(System.currentTimeMillis());
