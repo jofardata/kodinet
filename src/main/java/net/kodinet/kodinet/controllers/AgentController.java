@@ -2,10 +2,12 @@ package net.kodinet.kodinet.controllers;
 
 import net.kodinet.kodinet.entities.Admin;
 import net.kodinet.kodinet.entities.Agent;
+import net.kodinet.kodinet.entities.Entite;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.models.LoginObject;
 import net.kodinet.kodinet.repositories.AdminRepository;
 import net.kodinet.kodinet.repositories.AgentRepository;
+import net.kodinet.kodinet.repositories.EntityRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,18 @@ public class AgentController {
     AdminRepository adminRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    EntityRepository entityRepository;
     ApiResponse apiResponse = new ApiResponse();
     Logger LOGGER = LogManager.getLogger();
-    @PostMapping("/create/{adminId}")
-    public ResponseEntity<?>create(@RequestBody Agent agent,@PathVariable Long adminId){
+    @PostMapping("/create/{adminId}/entityId")
+    public ResponseEntity<?>create(@RequestBody Agent agent,
+                                   @PathVariable Long adminId,
+                                   @PathVariable Long entityId){
 
         Admin admin = adminRepository.getOne(adminId);
+        Entite entite = entityRepository.getOne(entityId);
+        agent.setEntite(entite);
         agent.setCreatedBy(admin);
         agent.setPassword(bCryptPasswordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
