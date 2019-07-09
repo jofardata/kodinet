@@ -48,6 +48,14 @@ public class AgentController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/findAllAsc")
+    public ResponseEntity<?>findAllAsc(){
+
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(agentRepository.findAllByOrderByNameAsc());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?>login(@RequestBody LoginObject loginObject){
 
