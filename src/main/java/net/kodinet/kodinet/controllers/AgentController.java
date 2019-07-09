@@ -31,7 +31,7 @@ public class AgentController {
     EntityRepository entityRepository;
     ApiResponse apiResponse = new ApiResponse();
     Logger LOGGER = LogManager.getLogger();
-    @PostMapping("/create/{adminId}/entityId")
+    @PostMapping("/create/{adminId}/{entityId}")
     public ResponseEntity<?>create(@RequestBody Agent agent,
                                    @PathVariable Long adminId,
                                    @PathVariable Long entityId){
