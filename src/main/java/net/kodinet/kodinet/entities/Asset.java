@@ -28,8 +28,10 @@ public class Asset {
     private String body;
     private String mark;
     private String vehicleType;
-    private int capacity;
+    private double capacity;
     private String image;
     private Date createdOn;
     private Long creationDate;
+    private String vehicleCategory;
+    private String unity;
 }
