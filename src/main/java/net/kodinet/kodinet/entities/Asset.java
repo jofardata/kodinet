@@ -34,4 +34,8 @@ public class Asset {
     private Long creationDate;
     private String vehicleCategory;
     private String unity;
+    private boolean vignette;
+    private boolean tscr;
+    private boolean atbp;
+    private boolean cct;
 }
