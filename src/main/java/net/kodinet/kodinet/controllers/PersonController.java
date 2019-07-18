@@ -42,6 +42,7 @@ public class PersonController {
 
 
         person.setBdnId(GenerateRandomStuff.getRandomString(10));
+
         Agent agent = agentRepository.getOne(agentId);
         person.setCreatedBy(agent);
         if (person.getBirthday()!=null){
@@ -50,6 +51,7 @@ public class PersonController {
         if (person.getFPrint()!=null){
             byte [] bytes =Base64.decodeBase64(new String(person.getFPrint()).getBytes("UTF-8"));
             person.setFingerprint(bytes);
+            person.setFPrint("");
         }
         Person person1 = personRepository.save(person);
         apiResponse.setResponseCode(ConstantsVariables.successCode);

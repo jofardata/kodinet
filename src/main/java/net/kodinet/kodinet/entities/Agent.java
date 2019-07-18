@@ -15,6 +15,8 @@ public class Agent {
     private String name;
     private String username;
     private String password;
+    @ManyToOne
+    private Entite entite;
     @JsonIgnore
     private boolean hasChangedPassword;
     @ManyToOne
