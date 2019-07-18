@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/assets")
@@ -65,6 +66,14 @@ public class AssetController {
     @GetMapping("/find-by-person/{id}")
     public ResponseEntity<?>findByPerson(@PathVariable Long id){
         Collection<Asset> assets=assetRepository.findByPersonId(id);
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(assets);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<?>findAll(){
+        List<Asset> assets=assetRepository.findAll();
         apiResponse.setResponseCode("00");
         apiResponse.setData(assets);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
