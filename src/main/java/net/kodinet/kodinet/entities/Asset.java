@@ -1,6 +1,7 @@
 package net.kodinet.kodinet.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spatial4j.core.shape.jts.JtsGeometry;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 
 @Data
 @Entity(name = "assets")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Asset {
 
     @Id
