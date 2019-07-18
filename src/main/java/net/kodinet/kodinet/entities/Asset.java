@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Data
 @Entity(name = "assets")
-//@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Asset {
 
     @Id
@@ -37,12 +36,8 @@ public class Asset {
     private Long creationDate;
     private String vehicleCategory;
     private String unity;
-    @JsonIgnore
     private boolean vignette;
-    @JsonIgnore
     private boolean tscr;
-    @JsonIgnore
     private boolean atbp;
-    @JsonIgnore
     private boolean cct;
 }
