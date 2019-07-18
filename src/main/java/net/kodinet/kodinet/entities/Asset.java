@@ -1,5 +1,6 @@
 package net.kodinet.kodinet.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spatial4j.core.shape.jts.JtsGeometry;
 import lombok.Data;
 
@@ -34,12 +35,12 @@ public class Asset {
     private Long creationDate;
     private String vehicleCategory;
     private String unity;
-    @Column(columnDefinition="tinyint(1) default 1")
+    @JsonIgnore
     private boolean vignette;
-    @Column(columnDefinition="tinyint(1) default 1")
+    @JsonIgnore
     private boolean tscr;
-    @Column(columnDefinition="tinyint(1) default 1")
+    @JsonIgnore
     private boolean atbp;
-    @Column(columnDefinition="tinyint(1) default 1")
+    @JsonIgnore
     private boolean cct;
 }
