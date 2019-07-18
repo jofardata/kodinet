@@ -34,4 +34,12 @@ public class Asset {
     private Long creationDate;
     private String vehicleCategory;
     private String unity;
+    @Column(columnDefinition="tinyint(1) default 1")
+    private boolean vignette;
+    @Column(columnDefinition="tinyint(1) default 1")
+    private boolean tscr;
+    @Column(columnDefinition="tinyint(1) default 1")
+    private boolean atbp;
+    @Column(columnDefinition="tinyint(1) default 1")
+    private boolean cct;
 }
