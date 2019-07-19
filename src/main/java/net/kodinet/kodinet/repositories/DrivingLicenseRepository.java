@@ -2,6 +2,7 @@ package net.kodinet.kodinet.repositories;
 
 import net.kodinet.kodinet.entities.DrivingLicense;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +14,6 @@ public interface DrivingLicenseRepository extends JpaRepository<DrivingLicense, 
             "?1 and ?2 and town =?3", nativeQuery = true)
     Collection<DrivingLicense> customResults(Long start, Long end, String town);
 
+    @Query(value = "select * from driving_licenses order by id desc ", nativeQuery = true)
+    Page<DrivingLicense>findPagedData(Pageable pageable);
 }

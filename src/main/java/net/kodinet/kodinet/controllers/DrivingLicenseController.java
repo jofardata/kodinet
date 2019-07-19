@@ -4,6 +4,7 @@ import net.kodinet.kodinet.entities.DrivingLicense;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.repositories.DrivingLicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +51,14 @@ public class DrivingLicenseController {
         apiResponse.setData(drivingLicenseRepository.customResults(
                 date1,date2,town
         ));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/pages")
+    public ResponseEntity<?>findPagedData(@RequestParam int page,@RequestParam int size){
+
+        PageRequest pageable = PageRequest.of(page,size);
+        apiResponse.setData(drivingLicenseRepository.findPagedData(pageable));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
