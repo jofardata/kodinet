@@ -17,6 +17,6 @@ public interface DrivingLicenseRepository extends JpaRepository<DrivingLicense, 
 
     @Query(value = "select * from driving_licenses order by id desc ", nativeQuery = true)
     Page<DrivingLicense>findPagedData(Pageable pageable);
-    @Query(value = "select * from driving_licenses where create_on between ?1 and ?2", nativeQuery = true)
+    @Query(value = "select * from driving_licenses where created_on between ?1 and ?2", nativeQuery = true)
     Page<DrivingLicense>findBetweenDates(Date date1, Date date2, Pageable pageable);
 }
