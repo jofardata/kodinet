@@ -10,11 +10,13 @@ import net.kodinet.kodinet.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/assets")
@@ -28,6 +30,9 @@ public class AssetController {
     @Autowired
     AssetCategoryRepository categoryRepository;
     ApiResponse apiResponse = new ApiResponse();
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @PostMapping("/create/{bdnNumber}/{categoryId}")
     public ResponseEntity<?>create(@RequestBody Asset asset,
@@ -77,5 +82,29 @@ public class AssetController {
         apiResponse.setResponseCode("00");
         apiResponse.setData(assets);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-vehicle")
+    public Map<String,Object> findVehicle(){
+        return jdbcTemplate.queryForMap("select persons.bdn_id," +
+                "case when type='Physique' then concat(persons.first_name, ' ',persons.middle_name,' ',persons.last_name) else persons.company_name end as name," +
+                "persons.phone," +
+                "persons.type," +
+                "assets.number_plate," +
+                "assets.chassis," +
+                "assets.mark," +
+                "assets.body," +
+                "assets.vehicle_type," +
+                "assets.vehicle_category," +
+                "assets.capacity," +
+                "assets.unity," +
+                "case when assets.vignette=true then (select combination.vignette from combination where combination.person=persons.type and combination.category=assets.vehicle_category and (assets.capacity>=seriesfrom and assets.capacity<seriesto)  and combination.vignette!=0 limit 1) else 0 end as vignette," +
+                "case when assets.tscr=true then (select combination.tscr from combination where combination.person=persons.type and combination.category=assets.vehicle_category and (assets.capacity>=seriesfrom and assets.capacity<seriesto)  and combination.tscr!=0 limit 1) else 0 end as tscr," +
+                "case when assets.atbp=true then (select combination.atbp from combination where combination.person=persons.type and combination.category=assets.vehicle_category and (assets.capacity>=seriesfrom and assets.capacity<seriesto)  and combination.atbp!=0 limit 1) else 0 end as atbp," +
+                "case when assets.cct=true then (select combination.cct from combination where combination.person=persons.type and combination.category=assets.vehicle_category and (assets.capacity>=seriesfrom and assets.capacity<seriesto)  and combination.cct!=0 limit 1) else 0 end as cct " +
+                "from persons " +
+                "inner join assets on persons.id = assets.person_id " +
+                "inner join assets_categories on assets.asset_category_id = assets_categories.id " +
+                "WHERE assets.number_plate='435AC19' or assets.chassis='000000'");
     }
 }
