@@ -61,4 +61,14 @@ public class DrivingLicenseController {
         apiResponse.setData(drivingLicenseRepository.findPagedData(pageable));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+    @GetMapping("/pages/dates")
+    public ResponseEntity<?>findBetweenDates(@RequestParam Long date1,
+                                             @RequestParam Long date2,
+                                             @RequestParam int page,
+                                             @RequestParam int size){
+        PageRequest pageable = PageRequest.of(page,size);
+        apiResponse.setData(drivingLicenseRepository.findBetweenDates(new Date(date1),
+                new Date(date2), pageable));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 }
