@@ -84,8 +84,8 @@ public class AssetController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/find-vehicle")
-    public Map<String,Object> findVehicle(){
+    @GetMapping("/find-vehicle/{chassis-or-numberplate}")
+    public Map<String,Object> findVehicle(@PathVariable("chassis-or-numberplate") String number){
         return jdbcTemplate.queryForMap("select persons.bdn_id," +
                 "case when type='Physique' then concat(persons.first_name, ' ',persons.middle_name,' ',persons.last_name) else persons.company_name end as name," +
                 "persons.phone," +
@@ -105,6 +105,6 @@ public class AssetController {
                 "from persons " +
                 "inner join assets on persons.id = assets.person_id " +
                 "inner join assets_categories on assets.asset_category_id = assets_categories.id " +
-                "WHERE assets.number_plate='435AC19' or assets.chassis='000000'");
+                "WHERE assets.number_plate='" + number + "' or assets.chassis='" + number + "'");
     }
 }
