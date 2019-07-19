@@ -1,5 +1,7 @@
 package net.kodinet.kodinet.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spatial4j.core.shape.jts.JtsGeometry;
 import lombok.Data;
 
@@ -28,8 +30,14 @@ public class Asset {
     private String body;
     private String mark;
     private String vehicleType;
-    private int capacity;
+    private double capacity;
     private String image;
     private Date createdOn;
     private Long creationDate;
+    private String vehicleCategory;
+    private String unity;
+    private boolean vignette;
+    private boolean tscr;
+    private boolean atbp;
+    private boolean cct;
 }
