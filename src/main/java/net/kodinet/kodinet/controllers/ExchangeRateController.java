@@ -31,7 +31,7 @@ public class ExchangeRateController {
     public ResponseEntity<?> read(){
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
-        apiResponse.setData(exchangeRateRepository.findAll());
+        apiResponse.setData(exchangeRateRepository.findFirst());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
