@@ -107,4 +107,5 @@ public class AssetController {
                 "inner join assets_categories on assets.asset_category_id = assets_categories.id " +
                 "WHERE assets.number_plate='" + number + "' or assets.chassis='" + number + "'");
     }
+
 }
