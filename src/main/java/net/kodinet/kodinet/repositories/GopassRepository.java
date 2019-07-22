@@ -11,9 +11,9 @@ import java.util.Date;
 
 public interface GopassRepository extends JpaRepository<GoPass, Long> {
 
-    @Query(value = "select * from vignettes order by id desc ", nativeQuery = true)
+    @Query(value = "select * from gopasses order by id desc ", nativeQuery = true)
     Page<GoPass> findPagedData(Pageable pageable);
-    @Query(value = "select * from vignettes where created_on between ?1 and ?2", nativeQuery = true)
+    @Query(value = "select * from gopasses where created_on between ?1 and ?2", nativeQuery = true)
     Page<GoPass>findBetweenDates(Date date1, Date date2, Pageable pageable);
 
 }
