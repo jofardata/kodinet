@@ -10,6 +10,7 @@ import net.kodinet.kodinet.repositories.AirlineRepository;
 import net.kodinet.kodinet.repositories.AirportRepository;
 import net.kodinet.kodinet.repositories.GopassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,25 @@ public class GoPassController {
     public ResponseEntity<?>findAll(){
         apiResponse.setResponseCode("00");
         apiResponse.setData(gopassRepository.findAll());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/pages")
+    public ResponseEntity<?> findPagedData(@RequestParam int page, @RequestParam int size) {
+
+        PageRequest pageable = PageRequest.of(page, size);
+        apiResponse.setData(gopassRepository.findPagedData(pageable));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/pages/dates")
+    public ResponseEntity<?> findBetweenDates(@RequestParam Long date1,
+                                              @RequestParam Long date2,
+                                              @RequestParam int page,
+                                              @RequestParam int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        apiResponse.setData(gopassRepository.findBetweenDates(new Date(date1),
+                new Date(date2), pageable));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }
