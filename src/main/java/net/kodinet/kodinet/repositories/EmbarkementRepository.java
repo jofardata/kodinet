@@ -16,4 +16,6 @@ public interface EmbarkementRepository extends JpaRepository<Embarkment, Long> {
     @Query(value = "select * from embarkments where created_on between ?1 and ?2", nativeQuery = true)
     Page<Embarkment>findBetweenDates(Date date1, Date date2, Pageable pageable);
 
+    @Query(value = "select count(*) from embarkments", nativeQuery = true)
+    int findCount();
 }

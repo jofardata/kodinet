@@ -18,4 +18,6 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     int findCount();
 
     public List<Agent> findAllByOrderByNameAsc();
+
+
 }

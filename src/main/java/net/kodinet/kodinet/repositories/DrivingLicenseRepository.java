@@ -20,4 +20,6 @@ public interface DrivingLicenseRepository extends JpaRepository<DrivingLicense, 
     @Query(value = "select * from driving_licenses where created_on between ?1 and ?2", nativeQuery = true)
     Page<DrivingLicense>findBetweenDates(Date date1, Date date2, Pageable pageable);
 
+    @Query(value = "select count(*) from driving_licenses", nativeQuery = true)
+    int findCount();
 }

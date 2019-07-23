@@ -17,4 +17,6 @@ public interface VignetteRepository extends JpaRepository<Vignette, Long> {
     @Query(value = "select * from vignettes where created_on between ?1 and ?2", nativeQuery = true)
     Page<Vignette>findBetweenDates(Date date1, Date date2, Pageable pageable);
 
+    @Query(value = "select count(*) from vignettes", nativeQuery = true)
+    int findCount();
 }

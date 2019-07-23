@@ -15,5 +15,6 @@ public interface GopassRepository extends JpaRepository<GoPass, Long> {
     Page<GoPass> findPagedData(Pageable pageable);
     @Query(value = "select * from gopasses where created_on between ?1 and ?2", nativeQuery = true)
     Page<GoPass>findBetweenDates(Date date1, Date date2, Pageable pageable);
-
+    @Query(value = "select count(*) from gopasses", nativeQuery = true)
+    int findCount();
 }
