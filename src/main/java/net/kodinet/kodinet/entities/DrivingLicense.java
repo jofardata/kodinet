@@ -22,6 +22,7 @@ public class DrivingLicense {
     private String birthPlace;
     private String bithday;
     private String address;
+    private String currency;
     private float amount;
     private String amountString;
     private String email;
