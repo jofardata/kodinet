@@ -65,4 +65,20 @@ public class TaxController {
         }
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    //FIND TAX BY ID
+    //==============
+    @GetMapping("find-by-id/{taxId}")
+    public  ResponseEntity<?> findById(@PathVariable("taxId") String taxId){
+        apiResponse = new ApiResponse();
+        try {
+            Tax tax = taxRepository.getOne(taxId);
+            apiResponse.setResponseCode("00");
+            apiResponse.setData(tax);
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 }
