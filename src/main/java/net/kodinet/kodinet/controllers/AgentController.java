@@ -3,11 +3,13 @@ package net.kodinet.kodinet.controllers;
 import net.kodinet.kodinet.entities.Admin;
 import net.kodinet.kodinet.entities.Agent;
 import net.kodinet.kodinet.entities.Entite;
+import net.kodinet.kodinet.entities.FiscalEntity;
 import net.kodinet.kodinet.models.ApiResponse;
 import net.kodinet.kodinet.models.LoginObject;
 import net.kodinet.kodinet.repositories.AdminRepository;
 import net.kodinet.kodinet.repositories.AgentRepository;
 import net.kodinet.kodinet.repositories.EntityRepository;
+import net.kodinet.kodinet.repositories.FiscalEntityRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class AgentController {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     EntityRepository entityRepository;
+
+    @Autowired
+    FiscalEntityRepository fiscalEntityRepository;
+
     ApiResponse apiResponse = new ApiResponse();
     Logger LOGGER = LogManager.getLogger();
     @PostMapping("/create/{adminId}/{entityId}")
@@ -37,8 +43,10 @@ public class AgentController {
                                    @PathVariable Long entityId){
 
         Admin admin = adminRepository.getOne(adminId);
-        Entite entite = entityRepository.getOne(entityId);
-        agent.setEntite(entite);
+//        Entite entite = entityRepository.getOne(entityId);
+//        agent.setEntite(entite);
+        FiscalEntity fiscalEntity = fiscalEntityRepository.getOne(entityId);
+        agent.setEntite(fiscalEntity);
         agent.setCreatedBy(admin);
         agent.setPassword(bCryptPasswordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
