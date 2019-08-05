@@ -32,7 +32,6 @@ public class Person {
     private String phone2;
     private String phone3;
     private String image;
-    @JsonIgnore
     private byte[] fingerprint;
     @Transient
     private String fPrint;
