@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/embarkements")
@@ -30,6 +32,10 @@ public class EmbarkementController {
     AirportRepository airportRepository;
     @Autowired
     AirlineRepository airlineRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    
     @PostMapping("/create/{agentId}")
     public ResponseEntity<?>create(@RequestBody Embarkment embarkment,@PathVariable Long agentId)
                                    {
@@ -68,5 +74,29 @@ public class EmbarkementController {
         apiResponse.setData(embarkementRepository.findBetweenDates(new Date(date1),
                 new Date(date2), pageable));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/tax-amounts/{agent-id}")
+    public Map<String,Object> taxAmounts(@PathVariable("agent-id") Long agentId){
+        return jdbcTemplate.queryForMap(
+                "select " +
+                        "(select sum(amount) from embarkments where (notefc is null or noteusd is null) and currency='FC' and agent_id=" + agentId + ") as fc," +
+                        "(select sum(amount) from embarkments where (notefc is null or noteusd is null) and currency='USD' and agent_id=" + agentId + ") as usd"
+        );
+    }
+
+    @PostMapping("/update-notes-to-embarquement/{agent-id}/{note-fc}/{note-usd}")
+    public ResponseEntity<?> updateEmbarquement(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+        apiResponse = new ApiResponse();
+        try {
+            jdbcTemplate.execute("update embarkments set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and agent_id=" + agentId);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Mise à jour effectué avec succès");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 }
