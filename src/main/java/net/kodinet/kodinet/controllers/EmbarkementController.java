@@ -35,7 +35,7 @@ public class EmbarkementController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @PostMapping("/create/{agentId}")
     public ResponseEntity<?>create(@RequestBody Embarkment embarkment,@PathVariable Long agentId)
                                    {

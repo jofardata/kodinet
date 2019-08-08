@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -41,7 +42,8 @@ public class PersonController {
     public ResponseEntity<?> create(@RequestBody Person person, @PathVariable Long agentId) throws ParseException, UnsupportedEncodingException {
 
 
-        person.setBdnId(GenerateRandomStuff.getRandomString(10));
+//        person.setBdnId(GenerateRandomStuff.getRandomString(10));
+        person.setBdnId(String.valueOf((int)(Math.random()*100000000)));
 
         Agent agent = agentRepository.getOne(agentId);
         person.setCreatedBy(agent);
@@ -54,6 +56,10 @@ public class PersonController {
             person.setFPrint("");
         }
         Person person1 = personRepository.save(person);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getForObject("http://dstr.connectbind.com:8080/sendsms?username=kod-guage&password=KOD2019&type=0&dlr=1&destination=243994401108&source=KODINET&message=KODINET\nVotre enregistrement dans le BDP est effectue avec l'ID: " + person.getBdnId() + ", nom : " + person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName(),String.class);
+
         apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");
         apiResponse.setData(person1);
