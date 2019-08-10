@@ -58,7 +58,7 @@ public class PersonController {
         Person person1 = personRepository.save(person);
 
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://dstr.connectbind.com:8080/sendsms?username=kod-guage&password=KOD2019&type=0&dlr=1&destination=243994401108&source=KODINET&message=KODINET\nVotre enregistrement dans le BDP est effectue avec l'ID: " + person.getBdnId() + ", nom : " + person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName(),String.class);
+        restTemplate.getForObject("http://dstr.connectbind.com:8080/sendsms?username=kod-guage&password=KOD2019&type=0&dlr=1&destination=" + person.getPhone() +"&source=KODINET&message=KODINET\nVotre enregistrement dans le BDP est effectue avec l'ID: " + person.getBdnId() + ", nom : " + person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName(),String.class);
 
         apiResponse.setResponseCode(ConstantsVariables.successCode);
         apiResponse.setResponseMessage("user registered");

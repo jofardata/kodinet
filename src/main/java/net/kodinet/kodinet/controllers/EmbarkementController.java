@@ -96,7 +96,6 @@ public class EmbarkementController {
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
         }
-
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 }
