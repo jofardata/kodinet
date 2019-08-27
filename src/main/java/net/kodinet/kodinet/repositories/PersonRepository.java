@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Person findByBdnIdOrNationalIdOrPhoneOrRfid(String bdn, String nat, String phone, String rfid);
+
+    Person findByBdnIdOrNationalIdOrPhone(String bdn, String nat, String phone);
+
     @Override
     Page<Person> findAll(Pageable pageable);
 

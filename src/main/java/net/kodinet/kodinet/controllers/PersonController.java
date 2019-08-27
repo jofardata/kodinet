@@ -105,6 +105,21 @@ public class PersonController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/find-by-input/{input}")
+    public ResponseEntity<?> findByInput(@PathVariable String input){
+        apiResponse = new ApiResponse();
+        try {
+            Person person = personRepository.findByBdnIdOrNationalIdOrPhone(input,input,input);
+            apiResponse.setResponseCode("00");
+            apiResponse.setData(person);
+
+        }catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?>update(Person person,@PathVariable Long id){
 
