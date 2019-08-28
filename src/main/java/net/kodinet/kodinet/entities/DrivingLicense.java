@@ -2,10 +2,7 @@ package net.kodinet.kodinet.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -31,4 +28,10 @@ public class DrivingLicense {
     private String status;
     private String category;
     private Date createdOn;
+    private String nationalite;
+    private Date dateExp;
+    @Column(columnDefinition = "boolean default false")
+    private boolean printed;
+
+
 }
