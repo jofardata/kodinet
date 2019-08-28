@@ -25,4 +25,10 @@ public interface DrivingLicenseRepository extends JpaRepository<DrivingLicense, 
 
     @Query(value = "select * from driving_licenses where town = ?1 and printed = false", nativeQuery = true)
     Collection<DrivingLicense> permis_not_printed(String town);
+
+    @Query(value = "UPDATE driving_licenses set printed = true where id = ?1",
+            nativeQuery = true)
+    void updatepermis(Long id);
+
+
 }

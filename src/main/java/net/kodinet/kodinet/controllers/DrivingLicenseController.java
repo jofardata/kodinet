@@ -83,4 +83,13 @@ public class DrivingLicenseController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @PostMapping("/update_printed_drivingLicence/{id}")
+    public ResponseEntity<?>update_printed_permis(@PathVariable Long id){
+
+        drivingLicenseRepository.updatepermis(id);
+        apiResponse.setResponseCode("00");
+        apiResponse.setResponseMessage("Driving license updated");
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }
