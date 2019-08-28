@@ -22,4 +22,7 @@ public interface DrivingLicenseRepository extends JpaRepository<DrivingLicense, 
 
     @Query(value = "select count(*) from driving_licenses", nativeQuery = true)
     int findCount();
+
+    @Query(value = "select * from driving_licenses where town = ?1 and printed = false", nativeQuery = true)
+    Collection<DrivingLicense> permis_not_printed(String town);
 }

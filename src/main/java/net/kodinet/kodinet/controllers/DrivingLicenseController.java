@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @RestController
@@ -24,8 +25,11 @@ public class DrivingLicenseController {
     @PostMapping("/create")
     public ResponseEntity<?>save(@RequestBody DrivingLicense drivingLicense){
 
-        drivingLicense.setCreatedOn(new Date());
-       DrivingLicense drivingLicense1 = drivingLicenseRepository.save(drivingLicense);
+        Calendar cal = Calendar.getInstance();
+        drivingLicense.setCreatedOn(cal.getTime());
+        cal.add(Calendar.YEAR, 1); //
+        drivingLicense.setDateExp(cal.getTime());
+        DrivingLicense drivingLicense1 = drivingLicenseRepository.save(drivingLicense);
         apiResponse.setResponseCode("00");
         apiResponse.setResponseMessage("Driving license created");
         apiResponse.setData(drivingLicense1);
@@ -71,4 +75,12 @@ public class DrivingLicenseController {
                 new Date(date2), pageable));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/permis_not_printed/{town}")
+    public ResponseEntity<?>permis_not_printed(
+            @PathVariable String town){
+        apiResponse.setData(drivingLicenseRepository.permis_not_printed(town));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }
