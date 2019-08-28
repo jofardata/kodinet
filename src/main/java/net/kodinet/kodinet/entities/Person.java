@@ -1,12 +1,11 @@
 package net.kodinet.kodinet.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity(name = "PERSONS")
@@ -64,6 +63,7 @@ public class Person {
     private String profession;
     private String professionCompanyName;
     private String professionCompanyId;
-    private String haspermis;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean haspermis;
 
 }
