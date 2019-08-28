@@ -64,5 +64,6 @@ public class Person {
     private String profession;
     private String professionCompanyName;
     private String professionCompanyId;
+    private String haspermis;
 
 }
