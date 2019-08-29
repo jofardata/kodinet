@@ -103,4 +103,12 @@ public class DrivingLicenseController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?>deleteAll(){
+        apiResponse = new ApiResponse();
+        drivingLicenseRepository.deleteAll();
+        apiResponse.setData("Deleted");
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }
