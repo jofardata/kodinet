@@ -17,6 +17,7 @@ public class DrivingLicense {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String gender;
     private String nationalId;
     private String birthPlace;
     private String bithday;
