@@ -14,7 +14,9 @@ public class DrivingLicense {
     private Long id;
 
     private String photo;
-    private String name;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private String nationalId;
     private String birthPlace;
     private String bithday;
