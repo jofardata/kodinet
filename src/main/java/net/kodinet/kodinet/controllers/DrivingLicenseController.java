@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -20,6 +21,8 @@ public class DrivingLicenseController {
 
     @Autowired
     DrivingLicenseRepository drivingLicenseRepository;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
     ApiResponse apiResponse = new ApiResponse();
 
     @PostMapping("/create")
@@ -38,6 +41,7 @@ public class DrivingLicenseController {
 
     @GetMapping("/findAll")
     public ResponseEntity<?>findAll(){
+        apiResponse = new ApiResponse();
         apiResponse.setData(drivingLicenseRepository.findAll());
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
@@ -79,17 +83,24 @@ public class DrivingLicenseController {
     @GetMapping("/permis_not_printed/{town}")
     public ResponseEntity<?>permis_not_printed(
             @PathVariable String town){
+        apiResponse = new ApiResponse();
         apiResponse.setData(drivingLicenseRepository.permis_not_printed(town));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PostMapping("/update_printed_drivingLicence/{id}")
-    public ResponseEntity<?>update_printed_permis(@PathVariable Long id){
+    public ResponseEntity<?>update_printed_permis(@PathVariable("id") Long id){
 
-        drivingLicenseRepository.updatepermis(id);
-        apiResponse.setResponseCode("00");
-        apiResponse.setResponseMessage("Driving license updated");
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        apiResponse = new ApiResponse();
+        try {
+            jdbcTemplate.execute("UPDATE driving_licenses set printed = true where id =" + id);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Printed successfully");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
 }
