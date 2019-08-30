@@ -37,7 +37,8 @@ public class DrivingLicense {
     private boolean printed;
     private String notefc;
     private String noteusd;
-    @ManyToOne
-    private Agent agent;
     private String quittance;
+    private String bdn_id_agent;
+
+
 }

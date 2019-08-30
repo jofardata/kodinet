@@ -116,8 +116,8 @@ public class DrivingLicenseController {
     public Map<String,Object> taxAmounts(@PathVariable("agent-id") Long agentId){
         return jdbcTemplate.queryForMap(
                 "select " +
-                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='FC' and agent_id=" + agentId + ") as fc," +
-                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='USD' and agent_id=" + agentId + ") as usd"
+                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='FC' and bdn_id_agent=" + agentId + ") as fc," +
+                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='USD' and bdn_id_agent=" + agentId + ") as usd"
         );
     }
 
@@ -125,7 +125,7 @@ public class DrivingLicenseController {
     public ResponseEntity<?> updateDrivingLicense(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("update driving_licenses set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and agent_id=" + agentId);
+            jdbcTemplate.execute("update driving_licenses set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and bdn_id_agent=" + agentId);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
         } catch (Exception ex){
