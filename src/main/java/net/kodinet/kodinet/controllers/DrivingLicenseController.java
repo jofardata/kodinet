@@ -112,20 +112,20 @@ public class DrivingLicenseController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/tax-amounts/{agent-id}")
-    public Map<String,Object> taxAmounts(@PathVariable("agent-id") Long agentId){
+    @GetMapping("/tax-amounts/{bdn-id-agent}")
+    public Map<String,Object> taxAmounts(@PathVariable("bdn-id-agent") String agentId){
         return jdbcTemplate.queryForMap(
                 "select " +
-                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='FC' and bdn_id_agent=" + agentId + ") as fc," +
-                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='USD' and bdn_id_agent=" + agentId + ") as usd"
+                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='FC' and bdn_id_agent='" + agentId + "') as fc," +
+                        "(select sum(amount) from driving_licenses where (notefc is null or noteusd is null) and currency='USD' and bdn_id_agent='" + agentId + "') as usd"
         );
     }
 
-    @PostMapping("/update-notes-to-driving-license/{agent-id}/{note-fc}/{note-usd}")
-    public ResponseEntity<?> updateDrivingLicense(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+    @PostMapping("/update-notes-to-driving-license/{bdn-id-agent}/{note-fc}/{note-usd}")
+    public ResponseEntity<?> updateDrivingLicense(@PathVariable("bdn-id-agent") String agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("update driving_licenses set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and bdn_id_agent=" + agentId);
+            jdbcTemplate.execute("update driving_licenses set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and bdn_id_agent='" + agentId + "'");
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
         } catch (Exception ex){
