@@ -134,4 +134,20 @@ public class DrivingLicenseController {
         }
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
+
+    @PostMapping("/update-rfid/{dl-id}/{rfid}")
+    public ResponseEntity<?> updateRfid(@PathVariable("dl-id") Long dl_id,@PathVariable("dl-id") String rfid ){
+        apiResponse = new ApiResponse();
+        try {
+            DrivingLicense drivingLicense = drivingLicenseRepository.getOne(dl_id);
+            drivingLicense.setRfid(rfid);
+            drivingLicenseRepository.save(drivingLicense);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Encodage effectué avec succès");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
 }
