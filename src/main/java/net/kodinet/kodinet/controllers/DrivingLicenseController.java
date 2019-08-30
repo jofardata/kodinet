@@ -136,7 +136,7 @@ public class DrivingLicenseController {
     }
 
     @PostMapping("/update-rfid/{dl-id}/{rfid}")
-    public ResponseEntity<?> updateRfid(@PathVariable("dl-id") Long dl_id,@PathVariable("dl-id") String rfid ){
+    public ResponseEntity<?> updateRfid(@PathVariable("dl-id") Long dl_id,@PathVariable("rfid") String rfid ){
         apiResponse = new ApiResponse();
         try {
             DrivingLicense drivingLicense = drivingLicenseRepository.getOne(dl_id);
