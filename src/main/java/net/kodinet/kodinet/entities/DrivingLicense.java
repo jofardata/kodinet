@@ -39,6 +39,6 @@ public class DrivingLicense {
     private String noteusd;
     private String quittance;
     private String bdn_id_agent;
-
+    private String rfid;
 
 }
