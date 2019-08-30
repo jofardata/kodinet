@@ -13,6 +13,7 @@ public class DrivingLicense {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String bdn_id;
     private String photo;
     private String firstName;
     private String middleName;
@@ -34,6 +35,8 @@ public class DrivingLicense {
     private Date dateExp;
     @Column(columnDefinition = "boolean default false")
     private boolean printed;
-
-
+    private String notefc;
+    private String noteusd;
+    @ManyToOne
+    private Agent agent;
 }
