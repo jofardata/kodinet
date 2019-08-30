@@ -39,4 +39,5 @@ public class DrivingLicense {
     private String noteusd;
     @ManyToOne
     private Agent agent;
+    private String quittance;
 }
