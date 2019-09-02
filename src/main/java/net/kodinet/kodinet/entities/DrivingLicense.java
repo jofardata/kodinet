@@ -37,6 +37,7 @@ public class DrivingLicense {
     private boolean printed;
     private String notefc;
     private String noteusd;
+    @Column(unique = true)
     private String quittance;
     private String bdn_id_agent;
     private String rfid;
