@@ -65,5 +65,7 @@ public class Person {
     private String professionCompanyId;
     @Column(columnDefinition = "boolean default false")
     private Boolean haspermis;
+    private String placeNaissance;
+    private String nationality;
 
 }
