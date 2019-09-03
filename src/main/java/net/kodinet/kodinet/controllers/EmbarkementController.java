@@ -99,11 +99,11 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteAll")
+    /*@DeleteMapping("/deleteAll")
     public ResponseEntity<?>deleteAll(){
         apiResponse = new ApiResponse();
         embarkementRepository.deleteAll();
         apiResponse.setData("Deleted");
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+    }*/
 }
