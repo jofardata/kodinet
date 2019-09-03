@@ -152,7 +152,7 @@ public class DrivingLicenseController {
     }
 
     @PostMapping("/encodage_rifd_perrmis/{idnational}/{rfid}")
-    public ResponseEntity<?> Encodage_rifd_permis(@PathVariable("idnational") String natinalId,@PathVariable("rfid-fc") String rfid){
+    public ResponseEntity<?> Encodage_rifd_permis(@PathVariable("idnational") String natinalId,@PathVariable("rfid") String rfid){
         apiResponse = new ApiResponse();
         try {
             jdbcTemplate.execute("update driving_licenses set rfid = '" + rfid + "' where nationalId = '" + natinalId + "'");
