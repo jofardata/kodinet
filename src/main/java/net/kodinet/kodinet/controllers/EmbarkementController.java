@@ -106,4 +106,22 @@ public class EmbarkementController {
         apiResponse.setData("Deleted");
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }*/
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?>delete(@PathVariable Long id){
+
+        apiResponse = new ApiResponse();
+        if (embarkementRepository.getOne(id)!=null){
+            embarkementRepository.deleteById(id);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Data deleted");
+        }else {
+            embarkementRepository.deleteById(id);
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage("Data not found");
+        }
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }
