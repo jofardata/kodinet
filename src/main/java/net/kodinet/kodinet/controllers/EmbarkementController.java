@@ -99,19 +99,6 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/update-notes-to-embarquement_lewis/{agent-id}/{note-usd}")
-    public ResponseEntity<?> updateEmbarquement_lewis(@PathVariable("agent-id") Long agentId,@PathVariable("note-usd") String noteUsd){
-        apiResponse = new ApiResponse();
-        try {
-            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd + "' where noteusd = '295' and agent_id=" + agentId);
-            apiResponse.setResponseCode("00");
-            apiResponse.setResponseMessage("Mise à jour effectué avec succès");
-        } catch (Exception ex){
-            apiResponse.setResponseCode("01");
-            apiResponse.setResponseMessage(ex.getMessage());
-        }
-        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
-    }
 
     /*@DeleteMapping("/deleteAll")
     public ResponseEntity<?>deleteAll(){
