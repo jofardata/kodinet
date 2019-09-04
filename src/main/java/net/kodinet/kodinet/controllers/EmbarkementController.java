@@ -99,6 +99,20 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
+    @PostMapping("/update-notes-to-embarquement_lewis/{agent-id}/{note-fc}/{note-usd}")
+    public ResponseEntity<?> updateEmbarquement_lewis(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+        apiResponse = new ApiResponse();
+        try {
+            jdbcTemplate.execute("update embarkments set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where noteusd = 295 and agent_id=" + agentId);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Mise à jour effectué avec succès");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
+
     /*@DeleteMapping("/deleteAll")
     public ResponseEntity<?>deleteAll(){
         apiResponse = new ApiResponse();
@@ -107,7 +121,7 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }*/
 
-    @DeleteMapping("/delete/{id}")
+   /* @DeleteMapping("/delete/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
 
         apiResponse = new ApiResponse();
@@ -122,6 +136,6 @@ public class EmbarkementController {
         }
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+    }*/
 
 }
