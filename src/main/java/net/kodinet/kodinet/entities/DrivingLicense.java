@@ -40,5 +40,6 @@ public class DrivingLicense {
     @Column(unique = true)
     private String quittance;
     private String bdn_id_agent;
+    @Column(unique = true)
     private String rfid;
 }

@@ -155,7 +155,7 @@ public class DrivingLicenseController {
     public ResponseEntity<?> Encodage_rifd_permis(@PathVariable("id_national") String natinalId,@PathVariable("puce_id") String rfid){
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("UPDATE drivingLicenses s set s.rfid = '" + rfid + "' where s.nationalId = '" + natinalId + "'");
+            jdbcTemplate.execute("UPDATE driving_licenses set rfid = '" + rfid + "' where national_id = '" + natinalId + "'");
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Encodage effectué avec succès");
         } catch (Exception ex){
