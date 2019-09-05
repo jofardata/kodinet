@@ -111,7 +111,7 @@ public class EmbarkementController {
     }
 
 
-    @GetMapping("/all_embarquement_lelo{agent-id}")
+    @GetMapping("/all_embarquement_lelo_id{agent-id}")
     public Map<String,Object> count_all(@PathVariable("agent-id") Long agentId){
         return jdbcTemplate.queryForMap("select TOP 5 from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + "");
     }
