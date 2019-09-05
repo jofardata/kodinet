@@ -101,7 +101,7 @@ public class EmbarkementController {
 
 
 
-    @GetMapping("/tax-amounts/{agent-id}")
+    @GetMapping("/count/{agent-id}")
     public Map<String,Object> count(@PathVariable("agent-id") Long agentId){
         return jdbcTemplate.queryForMap(
                 "select " +
