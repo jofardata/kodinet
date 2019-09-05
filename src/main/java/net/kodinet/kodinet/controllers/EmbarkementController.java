@@ -110,23 +110,10 @@ public class EmbarkementController {
         );
     }
 
-    @GetMapping("/count_jana_juzi/{agent-id}")
-    public Map<String,Object> count_jana_juzi(@PathVariable("agent-id") Long agentId){
-        return jdbcTemplate.queryForMap(
-                "select " +
-                        "(select count (id) from embarkments where notefc is not null  and currency='FC' and agent_id=" + agentId + ") as countfc," +
-                        "(select count (id) from embarkments where  noteusd is not null and currency='USD' and agent_id=" + agentId + ") as countusd"
-        );
-    }
 
-
-    @GetMapping("/count_all{agent-id}")
+    @GetMapping("/all_embarquement_lelo{agent-id}")
     public Map<String,Object> count_all(@PathVariable("agent-id") Long agentId){
-        return jdbcTemplate.queryForMap(
-                "select " +
-                        "(select count (id) from embarkments where  currency='FC' and agent_id=" + agentId + ") as countfc," +
-                        "(select count (id) from embarkments where  currency='USD' and agent_id=" + agentId + ") as countusd"
-        );
+        return jdbcTemplate.queryForMap("select TOP 5 from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + "");
     }
 
 
