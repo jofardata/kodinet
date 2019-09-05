@@ -116,7 +116,7 @@ public class EmbarkementController {
         apiResponse = new ApiResponse();
         try {
             apiResponse = new ApiResponse();
-            jdbcTemplate.execute("delete from embarkments WHERE id in (select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " limit 171)");
+            jdbcTemplate.execute("delete from embarkments WHERE id in (select id from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " order by id asc limit 171)");
             apiResponse.setData("Supression reussie");
         } catch (Exception ex){
             apiResponse.setResponseCode("01");
