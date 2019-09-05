@@ -111,12 +111,13 @@ public class EmbarkementController {
     }
 
 
-    @GetMapping("/all_embarquement_lelo_id/{agent-id}")
-    public ResponseEntity<?> all_embarquement_lelo_id(@PathVariable("agent-id") Long agentId){
+    @DeleteMapping("/delete_lelo_id/{agent-id}")
+    public ResponseEntity<?> delete_lelo_id(@PathVariable("agent-id") Long agentId){
         apiResponse = new ApiResponse();
         try {
             apiResponse = new ApiResponse();
-            apiResponse.setData(jdbcTemplate.queryForList("select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " limit 5 "));
+            jdbcTemplate.execute("delete from embarkments WHERE id in (select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " limit 171)");
+            apiResponse.setData("Supression reussie");
         } catch (Exception ex){
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
