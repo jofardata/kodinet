@@ -120,6 +120,14 @@ public class EmbarkementController {
     }
 
 
+    @GetMapping("/count_all{agent-id}")
+    public Map<String,Object> count_all(@PathVariable("agent-id") Long agentId){
+        return jdbcTemplate.queryForMap(
+                "select " +
+                        "(select count (id) from embarkments where  currency='FC' and agent_id=" + agentId + ") as countfc," +
+                        "(select count (id) from embarkments where  currency='USD' and agent_id=" + agentId + ") as countusd"
+        );
+    }
 
 
 
