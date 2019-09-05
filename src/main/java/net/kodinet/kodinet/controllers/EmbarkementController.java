@@ -112,10 +112,18 @@ public class EmbarkementController {
 
 
     @GetMapping("/all_embarquement_lelo_id/{agent-id}")
-    public Map<String,Object> all_embarquement_lelo_id(@PathVariable("agent-id") Long agentId){
-        return jdbcTemplate.queryForMap("select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + "");
-    }
+    public ResponseEntity<?> all_embarquement_lelo_id(@PathVariable("agent-id") Long agentId){
+        apiResponse = new ApiResponse();
+        try {
+            apiResponse = new ApiResponse();
+            apiResponse.setData(jdbcTemplate.queryForList("select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + ""));
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 
+    }
 
 
     /*@DeleteMapping("/deleteAll")
