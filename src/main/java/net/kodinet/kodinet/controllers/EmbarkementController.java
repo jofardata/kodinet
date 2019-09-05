@@ -101,14 +101,24 @@ public class EmbarkementController {
 
 
 
-    @GetMapping("/count/{agent-id}")
-    public Map<String,Object> count(@PathVariable("agent-id") Long agentId){
+    @GetMapping("/countleo/{agent-id}")
+    public Map<String,Object> countleo(@PathVariable("agent-id") Long agentId){
         return jdbcTemplate.queryForMap(
                 "select " +
                         "(select count (id) from embarkments where notefc is null  and currency='FC' and agent_id=" + agentId + ") as countfc," +
                         "(select count (id) from embarkments where  noteusd is null and currency='USD' and agent_id=" + agentId + ") as countusd"
         );
     }
+
+    @GetMapping("/count_jana_juzi/{agent-id}")
+    public Map<String,Object> count_jana_juzi(@PathVariable("agent-id") Long agentId){
+        return jdbcTemplate.queryForMap(
+                "select " +
+                        "(select count (id) from embarkments where notefc is not null  and currency='FC' and agent_id=" + agentId + ") as countfc," +
+                        "(select count (id) from embarkments where  noteusd is not null and currency='USD' and agent_id=" + agentId + ") as countusd"
+        );
+    }
+
 
 
 
