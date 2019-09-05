@@ -100,33 +100,6 @@ public class EmbarkementController {
     }
 
 
-
-    @GetMapping("/countleo/{agent-id}")
-    public Map<String,Object> countleo(@PathVariable("agent-id") Long agentId){
-        return jdbcTemplate.queryForMap(
-                "select " +
-                        "(select count (id) from embarkments where notefc is null  and currency='FC' and agent_id=" + agentId + ") as countfc," +
-                        "(select count (id) from embarkments where  noteusd is null and currency='USD' and agent_id=" + agentId + ") as countusd"
-        );
-    }
-
-
-    @DeleteMapping("/delete_lelo_id/{agent-id}")
-    public ResponseEntity<?> delete_lelo_id(@PathVariable("agent-id") Long agentId){
-        apiResponse = new ApiResponse();
-        try {
-            apiResponse = new ApiResponse();
-            jdbcTemplate.execute("delete from embarkments WHERE id in (select id from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " order by id asc limit 171)");
-            apiResponse.setData("Supression reussie");
-        } catch (Exception ex){
-            apiResponse.setResponseCode("01");
-            apiResponse.setResponseMessage(ex.getMessage());
-        }
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-
-    }
-
-
     /*@DeleteMapping("/deleteAll")
     public ResponseEntity<?>deleteAll(){
         apiResponse = new ApiResponse();
