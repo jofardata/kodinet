@@ -116,7 +116,7 @@ public class EmbarkementController {
         apiResponse = new ApiResponse();
         try {
             apiResponse = new ApiResponse();
-            apiResponse.setData(jdbcTemplate.queryForList("select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + ""));
+            apiResponse.setData(jdbcTemplate.queryForList("select * from embarkments where noteusd is null and  currency='USD' and agent_id = " + agentId + " limit 5 "));
         } catch (Exception ex){
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
