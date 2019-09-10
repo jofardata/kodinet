@@ -19,5 +19,8 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     public List<Agent> findAllByOrderByNameAsc();
 
+    @Query(value = "select id as id from agents where  username = ?1", nativeQuery = true)
+    Long getId_Old(String username);
+
 
 }
