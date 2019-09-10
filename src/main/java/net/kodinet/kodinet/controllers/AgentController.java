@@ -166,10 +166,10 @@ public class AgentController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/agent-get-id-old/{user_name}")
-    public ResponseEntity<?>getpa_ol_id_agent(@PathVariable("user_name") String username){
+    @GetMapping("/agent-get-id-new/{bdnid}")
+    public ResponseEntity<?>getpa_ol_id_agent(@PathVariable("bdnid") String bdnid){
         apiResponse.setResponseCode("00");
-        apiResponse.setData(agentRepository.getId_Old(username));
+        apiResponse.setData(agentRepository.getId_Old(bdnid));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
