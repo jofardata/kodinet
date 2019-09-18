@@ -100,6 +100,17 @@ public class EmbarkementController {
     }
 
 
+    @GetMapping("/find-by_id_agent/{agent-id}")
+    public ResponseEntity<?>findBydIdAgent(@PathVariable("agent-id") Long agentId){
+        apiResponse = new ApiResponse();
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(embarkementRepository.select_embarquement_byIdAgent(agentId));
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+
+
     /*@DeleteMapping("/deleteAll")
     public ResponseEntity<?>deleteAll(){
         apiResponse = new ApiResponse();

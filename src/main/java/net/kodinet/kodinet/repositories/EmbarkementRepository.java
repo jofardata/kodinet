@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Collection;
 import java.util.Date;
 
 public interface EmbarkementRepository extends JpaRepository<Embarkment, Long> {
@@ -18,4 +19,7 @@ public interface EmbarkementRepository extends JpaRepository<Embarkment, Long> {
 
     @Query(value = "select count(*) from embarkments", nativeQuery = true)
     int findCount();
+
+    @Query(value = "select * from embarkments where agent_id = ?1", nativeQuery = true)
+    Collection<Embarkment> select_embarquement_byIdAgent(Long idAgent);
 }
