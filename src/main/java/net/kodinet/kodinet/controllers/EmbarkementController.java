@@ -119,7 +119,7 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }*/
 
-   /* @DeleteMapping("/delete/{id}")
+   @DeleteMapping("/delete/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
 
         apiResponse = new ApiResponse();
@@ -134,6 +134,6 @@ public class EmbarkementController {
         }
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }*/
+    }
 
 }
