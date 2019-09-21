@@ -136,4 +136,21 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+
+    @GetMapping("/find-by_note_usd")
+    public ResponseEntity<?>findBydNoteUsd(){
+        apiResponse = new ApiResponse();
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(embarkementRepository.select_embarquement_noteusd());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-count_by_note_usd")
+    public ResponseEntity<?>findcountBydNoteUsd(){
+        apiResponse = new ApiResponse();
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(embarkementRepository.findCountnoteusd());
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
 }

@@ -22,4 +22,10 @@ public interface EmbarkementRepository extends JpaRepository<Embarkment, Long> {
 
     @Query(value = "select * from embarkments where agent_id = ?1", nativeQuery = true)
     Collection<Embarkment> select_embarquement_byIdAgent(Long idAgent);
+
+    @Query(value = "select * from embarkments where noteusd = '535' and agent_id = 4", nativeQuery = true)
+    Collection<Embarkment> select_embarquement_noteusd();
+
+    @Query(value = "select count(*) from embarkments where noteusd = '535' and agent_id = 4", nativeQuery = true)
+    int findCountnoteusd();
 }
