@@ -153,4 +153,18 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    @PostMapping("/update-notes-to-null/{id}")
+    public ResponseEntity<?> updateEmbarquementnull(@PathVariable("id") Long id){
+        apiResponse = new ApiResponse();
+        try {
+            jdbcTemplate.execute("update embarkments set notefc= null,noteusd=null where id=" + id);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Mise à jour effectué avec succès");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
+
 }
