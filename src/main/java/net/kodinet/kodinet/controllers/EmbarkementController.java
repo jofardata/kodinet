@@ -141,19 +141,19 @@ public class EmbarkementController {
     }
 
 
-    @GetMapping("/find-by_note_usd")
-    public ResponseEntity<?>findBydNoteUsd(){
+    @GetMapping("/find-by_note_usd/{note_usd}/{id_agent}")
+    public ResponseEntity<?>findBydNoteUsd(@PathVariable("note_usd") String noteusd,@PathVariable("id_agent") Long id_agent){
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
-        apiResponse.setData(embarkementRepository.select_embarquement_noteusd());
+        apiResponse.setData(embarkementRepository.select_embarquement_noteusd(noteusd,id_agent));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/find-count_by_note_usd")
-    public ResponseEntity<?>findcountBydNoteUsd(){
+    @GetMapping("/find-count_by_note_usd/{note_usd}/{id_agent}")
+    public ResponseEntity<?>findcountBydNoteUsd(@PathVariable("note_usd") String noteusd,@PathVariable("id_agent") Long id_agent){
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
-        apiResponse.setData(embarkementRepository.findCountnoteusd());
+        apiResponse.setData(embarkementRepository.findCountnoteusd(noteusd,id_agent));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
@@ -170,5 +170,20 @@ public class EmbarkementController {
         }
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
+
+    @PostMapping("/update-notes-to-embarquement_notes/{agent-id}/{note-fc}/{note-usd}")
+    public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+        apiResponse = new ApiResponse();
+        try {
+            jdbcTemplate.execute("update embarkments set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where noteusd '"+noteUsd+"' and agent_id=" + agentId);
+            apiResponse.setResponseCode("00");
+            apiResponse.setResponseMessage("Mise à jour effectué avec succès");
+        } catch (Exception ex){
+            apiResponse.setResponseCode("01");
+            apiResponse.setResponseMessage(ex.getMessage());
+        }
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
+
 
 }
