@@ -171,11 +171,11 @@ public class EmbarkementController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
-    @PostMapping("/update-notes-to-embarquement_notes/{agent-id}/{note-fc}/{note-usd}")
-    public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+    @PostMapping("/update-notes-to-embarquement_notes/{agent-id}/{note-usd}/{note-usd_new}")
+    public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId,@PathVariable("note-usd") String noteusd,@PathVariable("note-usd_new") String noteUsd_new){
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("update embarkments set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where noteusd '"+noteUsd+"' and agent_id=" + agentId);
+            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd_new + "' where noteusd '"+noteusd+"' and agent_id=" + agentId);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
         } catch (Exception ex){
