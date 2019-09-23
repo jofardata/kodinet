@@ -175,7 +175,7 @@ public class EmbarkementController {
     public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId,@PathVariable("note-usd") String noteusd,@PathVariable("note-usd_new") String noteUsd_new){
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd_new + "' where noteusd '"+noteusd+"' and agent_id=" + agentId);
+            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd_new + "' where noteusd = '"+noteusd+"' and agent_id=" + agentId);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
         } catch (Exception ex){
