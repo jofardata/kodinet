@@ -28,4 +28,8 @@ public interface EmbarkementRepository extends JpaRepository<Embarkment, Long> {
 
     @Query(value = "select count(*) from embarkments where noteusd = ?1 and agent_id = ?2", nativeQuery = true)
     int findCountnoteusd(String notesud, Long agent_id);
+
+    @Query(value = "select * from embarkments where noteusd is null and agent_id = ?1 order  by id ASC", nativeQuery = true)
+    Collection<Embarkment> select_embarquement_whitout_note(Long agent_id);
+
 }

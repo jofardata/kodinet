@@ -37,8 +37,7 @@ public class EmbarkementController {
     private JdbcTemplate jdbcTemplate;
 
     @PostMapping("/create/{agentId}")
-    public ResponseEntity<?>create(@RequestBody Embarkment embarkment,@PathVariable Long agentId)
-                                   {
+    public ResponseEntity<?> create(@RequestBody Embarkment embarkment, @PathVariable Long agentId) {
         Agent agent = agentRepository.getOne(agentId);
         embarkment.setCreatedOn(new Date());
         embarkment.setAgent(agent);
@@ -49,7 +48,7 @@ public class EmbarkementController {
     }
 
     @GetMapping("/find-all")
-    public ResponseEntity<?>findAll(){
+    public ResponseEntity<?> findAll() {
 
         apiResponse.setResponseCode("00");
         apiResponse.setData(embarkementRepository.findAll());
@@ -77,7 +76,7 @@ public class EmbarkementController {
     }
 
     @GetMapping("/tax-amounts/{agent-id}")
-    public Map<String,Object> taxAmounts(@PathVariable("agent-id") Long agentId){
+    public Map<String, Object> taxAmounts(@PathVariable("agent-id") Long agentId) {
         return jdbcTemplate.queryForMap(
                 "select " +
                         "(select sum(amount) from embarkments where (notefc is null or noteusd is null) and currency='FC' and agent_id=" + agentId + ") as fc," +
@@ -86,22 +85,22 @@ public class EmbarkementController {
     }
 
     @PostMapping("/update-notes-to-embarquement/{agent-id}/{note-fc}/{note-usd}")
-    public ResponseEntity<?> updateEmbarquement(@PathVariable("agent-id") Long agentId,@PathVariable("note-fc") String noteFC,@PathVariable("note-usd") String noteUsd){
+    public ResponseEntity<?> updateEmbarquement(@PathVariable("agent-id") Long agentId, @PathVariable("note-fc") String noteFC, @PathVariable("note-usd") String noteUsd) {
         apiResponse = new ApiResponse();
         try {
             jdbcTemplate.execute("update embarkments set notefc='" + noteFC + "',noteusd='" + noteUsd + "' where (notefc is null or noteusd is null) and agent_id=" + agentId);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
         }
-        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
 
     @GetMapping("/find-by_id_agent/{agent-id}")
-    public ResponseEntity<?>findBydIdAgent(@PathVariable("agent-id") Long agentId){
+    public ResponseEntity<?> findBydIdAgent(@PathVariable("agent-id") Long agentId) {
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
         apiResponse.setData(embarkementRepository.select_embarquement_byIdAgent(agentId));
@@ -120,18 +119,16 @@ public class EmbarkementController {
     }*/
 
 
-
-
     //POUR UNE MANIPULATION TEMPORAIRE
-   @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?>delete(@PathVariable Long id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
 
         apiResponse = new ApiResponse();
-        if (embarkementRepository.getOne(id)!=null){
+        if (embarkementRepository.getOne(id) != null) {
             embarkementRepository.deleteById(id);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Data deleted");
-        }else {
+        } else {
             embarkementRepository.deleteById(id);
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage("Data not found");
@@ -142,47 +139,55 @@ public class EmbarkementController {
 
 
     @GetMapping("/find-by_note_usd/{note_usd}/{id_agent}")
-    public ResponseEntity<?>findBydNoteUsd(@PathVariable("note_usd") String noteusd,@PathVariable("id_agent") Long id_agent){
+    public ResponseEntity<?> findBydNoteUsd(@PathVariable("note_usd") String noteusd, @PathVariable("id_agent") Long id_agent) {
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
-        apiResponse.setData(embarkementRepository.select_embarquement_noteusd(noteusd,id_agent));
+        apiResponse.setData(embarkementRepository.select_embarquement_noteusd(noteusd, id_agent));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @GetMapping("/find-count_by_note_usd/{note_usd}/{id_agent}")
-    public ResponseEntity<?>findcountBydNoteUsd(@PathVariable("note_usd") String noteusd,@PathVariable("id_agent") Long id_agent){
+    public ResponseEntity<?> findcountBydNoteUsd(@PathVariable("note_usd") String noteusd, @PathVariable("id_agent") Long id_agent) {
         apiResponse = new ApiResponse();
         apiResponse.setResponseCode("00");
-        apiResponse.setData(embarkementRepository.findCountnoteusd(noteusd,id_agent));
+        apiResponse.setData(embarkementRepository.findCountnoteusd(noteusd, id_agent));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PostMapping("/update-notes-to-null/{id}")
-    public ResponseEntity<?> updateEmbarquementnull(@PathVariable("id") Long id){
+    public ResponseEntity<?> updateEmbarquementnull(@PathVariable("id") Long id) {
         apiResponse = new ApiResponse();
         try {
             jdbcTemplate.execute("update embarkments set notefc= null,noteusd=null where id=" + id);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
         }
-        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     @PostMapping("/update-notes-to-embarquement_notes/{agent-id}/{note-usd}/{note-usd_new}")
-    public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId,@PathVariable("note-usd") String noteusd,@PathVariable("note-usd_new") String noteUsd_new){
+    public ResponseEntity<?> updateEmbarquement_notes(@PathVariable("agent-id") Long agentId, @PathVariable("note-usd") String noteusd, @PathVariable("note-usd_new") String noteUsd_new) {
         apiResponse = new ApiResponse();
         try {
-            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd_new + "' where noteusd = '"+noteusd+"' and agent_id=" + agentId);
+            jdbcTemplate.execute("update embarkments set noteusd='" + noteUsd_new + "' where noteusd = '" + noteusd + "' and agent_id=" + agentId);
             apiResponse.setResponseCode("00");
             apiResponse.setResponseMessage("Mise à jour effectué avec succès");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage(ex.getMessage());
         }
-        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-embarquements-without-note/{agent-id}")
+    public ResponseEntity<?> findEmbarquementWithoutNote(@PathVariable("agent-id") Long agentId) {
+        apiResponse = new ApiResponse();
+        apiResponse.setResponseCode("00");
+        apiResponse.setData(embarkementRepository.select_embarquement_whitout_note(agentId));
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
 
