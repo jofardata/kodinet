@@ -133,10 +133,22 @@ public class EmbarkementController {
             apiResponse.setResponseCode("01");
             apiResponse.setResponseMessage("Data not found");
         }
-
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+
+    //POUR UNE MANIPULATION TEMPORAIRE
+    @DeleteMapping("/delete/{id1}/{id2}")
+    public ResponseEntity<?> deleteIdMultiple(@PathVariable Long id1, @PathVariable Long id2) {
+
+        for (long i = id1; i <= id2; i++) {
+            embarkementRepository.deleteById(i);
+        }
+        apiResponse.setResponseCode("00");
+        apiResponse.setResponseMessage("Data deleted");
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
 
     @GetMapping("/find-by_note_usd/{note_usd}/{id_agent}")
     public ResponseEntity<?> findBydNoteUsd(@PathVariable("note_usd") String noteusd, @PathVariable("id_agent") Long id_agent) {
