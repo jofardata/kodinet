@@ -20,8 +20,8 @@ public class Embarkment {
     @ManyToOne
     private Agent agent;
     private Date createdOn;
-    @Column(unique = true)
     private String quittance;
+    @Column(unique = true)
     private String notefc;
     private String noteusd;
 }
