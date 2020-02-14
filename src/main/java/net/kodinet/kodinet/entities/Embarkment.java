@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 @Entity(name = "embarkments")
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"quittance"})})
 public class Embarkment {
 
     @Id
@@ -21,7 +22,6 @@ public class Embarkment {
     private Agent agent;
     private Date createdOn;
     private String quittance;
-    @Column(unique = true)
     private String notefc;
     private String noteusd;
 }
